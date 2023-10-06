@@ -22,39 +22,79 @@ let bookList = [
 
 let bookListContainer = document.querySelector(".book__list");
 
-for (let eachBook of bookList) { // for (let element of array)
-  let bookCard = document.createElement("article");
-  bookCard.classList.add("card"); // ajoute une classe à l'élément html
-  bookCard.style.width = "18rem"; // pas une bonne pratique, passer par le css
+// lorsque je clique sur le bouton "add-book", appeler la fonction createBook
+let addBookButton = document.getElementById("add-book");
 
-  // <img src="..." />
-  let bookPicture = document.createElement("img");
-  bookPicture.src = eachBook.picture;
+addBookButton.addEventListener("click", function() {
+  createBook();
+});
 
-  // <h3>...</h3>
+function createBook() {
+    // création de la "card" d'un livre
+    let bookCard = document.createElement("article");
+    bookCard.classList.add("card"); // ajoute une classe à l'élément html
+    bookCard.style.width = "18rem"; // pas une bonne pratique, passer par le css
+
+  // récupérer l'élément qui contient le titre du livre
+  let bookTitleInput = document.getElementById("book-title");
+  // récupérer le texte de l'élément
+  let titleValue = bookTitleInput.value;
+
+  // créer une balise de titre h3 avec le texte renseigné
   let bookTitle = document.createElement("h3");
-  bookTitle.textContent = eachBook.title;
+  bookTitle.textContent = titleValue;
 
-  let bookAuthor = document.createElement("h4");
-  bookAuthor.textContent = eachBook.author;
+  // TODO pareil avec auteur, description, image
 
-  let bookDescription = document.createElement("p");
-  bookDescription.textContent = eachBook.description;
-
-  // je créé la structure de la carte du livre à afficher
-  bookCard.appendChild(bookPicture);
   bookCard.appendChild(bookTitle);
-  bookCard.appendChild(bookAuthor);
-  bookCard.appendChild(bookDescription);
 
-  // j'ajoute la carte du livre à la liste des livres
+  // ajouter le titre dans ma liste de livres
   bookListContainer.appendChild(bookCard);
 }
+
+function showBookList() {
+  // remet la liste à zéro
+  bookListContainer.innerHTML = "";
+
+  for (let eachBook of bookList) { // for (let element of array)
+    // création de la "card" d'un livre
+    let bookCard = document.createElement("article");
+    bookCard.classList.add("card"); // ajoute une classe à l'élément html
+    bookCard.style.width = "18rem"; // pas une bonne pratique, passer par le css
+
+    // <img src="..." />
+    let bookPicture = document.createElement("img");
+    bookPicture.src = eachBook.picture;
+
+    // <h3>...</h3>
+    let bookTitle = document.createElement("h3");
+    bookTitle.textContent = eachBook.title;
+
+    let bookAuthor = document.createElement("h4");
+    bookAuthor.textContent = eachBook.author;
+
+    let bookDescription = document.createElement("p");
+    bookDescription.textContent = eachBook.description;
+
+    // je créé la structure de la carte du livre à afficher
+    bookCard.appendChild(bookPicture);
+    bookCard.appendChild(bookTitle);
+    bookCard.appendChild(bookAuthor);
+    bookCard.appendChild(bookDescription);
+
+    // j'ajoute la carte du livre à la liste des livres
+    bookListContainer.appendChild(bookCard);
+  }
+}
+
+showBookList();
+
+// pouvoir ajouter un livre
+
+
 
 // filtrer les livres en fonction de leur statut : lu, à lire, en cours de lecture
 
 
 // pouvoir changer le statut d'un livre
 
-
-// pouvoir noter un livre
